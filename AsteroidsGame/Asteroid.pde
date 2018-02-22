@@ -43,8 +43,19 @@ class Asteroid {
       noFill();
       stroke(255);
 
-      ellipse(pos.x, pos.y, radius*2, radius*2);
+      polygon(pos.x, pos.y, radius, 12);
     }
+  }
+//--------------------------------------------------------------------------------------------------------------------------
+  void polygon(float x, float y, float radius, int npoints) {
+    float angle = TWO_PI / npoints;
+    beginShape();
+    for (float a = 0; a < TWO_PI; a += angle) {
+      float sx = x + cos(a) * radius;
+      float sy = y + sin(a) * radius;
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
   }
   //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -113,6 +124,22 @@ class Asteroid {
     }
   }
 
+  //------------------------------------------------------------------------------------------------------------------------------------------
+  boolean lookForHit(PVector bulletPos) {
+    if (split) {
+      for (Asteroid a : chunks) {
+        if (a.lookForHit(bulletPos)) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      if (dist(pos.x, pos.y, bulletPos.x, bulletPos.y)< radius) {
+        return true;
+      }
+      return false;
+    }
+  }
   //------------------------------------------------------------------------------------------------------------------------------------------
 
 

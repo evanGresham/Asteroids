@@ -32,7 +32,7 @@ class NeuralNet {
 
     //set the matricies to random values
     whi.randomize();
-    whh.randomize();
+    whh.randomize(); 
     woh.randomize();
   }
 
